@@ -70,18 +70,22 @@ app.put('/users/:id',(req,res) => {
 })
 
 //delete a user w/ their id
-app.delete('/users/:id',(req,res)=> {
-    const { id } = req.params;
-    const user = users.findIndex(u => u.id === id);
 
-    if (userindex === -1) {
-        return res.status(404).json({ error: 'user doesn\'t exist' })
+app.delete("/users/:id", (req, res) => {
+    const { id } = req.params;
+    const userIndex = users.findIndex(u => u.id === id);
+
+    if (userIndex === -1) {
+        return res.status(404).json({ error: "User not found" });
     }
-    //remove usr
+
+    // Remove user from array
     users.splice(userIndex, 1);
 
-    return res.status(204).send(); 
-})
+    // Success, no content
+    return res.status(204).send();
+});
+
 
 
 app.get('/', (req, res) => {
